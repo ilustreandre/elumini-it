@@ -13,6 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IUserTaskRepository, UserTaskRepository>();
 builder.Services.AddScoped<IUserTaskService, UserTaskService>();
 builder.Services.AddScoped<IQueueService, QueueService>();
+builder.Services.AddSingleton<ILogs, Logs>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -28,7 +29,6 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

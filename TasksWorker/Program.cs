@@ -13,6 +13,7 @@ builder.Services.AddSingleton<IUserTaskRepository, UserTaskRepository>();
 
 builder.Services.AddScoped<IUserTaskService, UserTaskService>();
 builder.Services.AddScoped<IQueueService, QueueService>();
+builder.Services.AddSingleton<ILogs, Logs>();
 
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {

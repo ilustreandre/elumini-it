@@ -4,12 +4,10 @@ namespace TasksWorker
 {
     public class Worker : BackgroundService
     {
-        private readonly IConfiguration _configuration;
         private readonly IServiceProvider _serviceProvider;
-
-        public Worker(IConfiguration configuration, IServiceProvider serviceProvider)
+        
+        public Worker(IServiceProvider serviceProvider)
         {
-            _configuration = configuration;
             _serviceProvider = serviceProvider;
         }
 

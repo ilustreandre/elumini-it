@@ -8,28 +8,30 @@ namespace TasksAPI.Domain.Services
     {
         private readonly IUserTaskRepository _userTaskRepository = default!;
         private readonly IQueueService _queueService = default!;
+        private readonly ILogs _logs;
 
-        public UserTaskService(IUserTaskRepository userTaskRepository, IQueueService queueService)
+        public UserTaskService(IUserTaskRepository userTaskRepository, IQueueService queueService, ILogs logs)
         {
             _userTaskRepository = userTaskRepository;
             _queueService = queueService;
-        }
-
-        public async Task<UserTaskDTO?> GetByIdAsync(int id)
-        {
-            var userTask = await _userTaskRepository.GetByIdAsync(id);
-            var userTaskDTO = EntityToDTO(userTask);
-            return userTaskDTO;
+            _logs = logs;
         }
 
         public async Task<List<UserTaskDTO>> GetAllAsync()
         {
-            var list = await _userTaskRepository.GetAllAsync();
+            try
+            {
+                var list = await _userTaskRepository.GetAllAsync();
 
-            if (list is null)
-                return [];
+                if (list is not null)
+                    return list.Select(x => EntityToDTO(x)).ToList();
+            }
+            catch (Exception ex)
+            {
+                _logs.LogInfo($"Exception ocurred at: {DateTimeOffset.Now}. Message: {ex.Message} | InnerException: {ex.InnerException}");
+            }
 
-            return list.Select(x => EntityToDTO(x)).ToList();
+            return [];
         }
 
         public void Add(UserTaskDTO userTaskDTO)

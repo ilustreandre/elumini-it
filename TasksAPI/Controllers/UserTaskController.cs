@@ -17,13 +17,6 @@ public static class UserTaskController
         .WithName("GetAll")
         .WithOpenApi();
 
-        group.MapGet("/{id}", async (int id, IUserTaskService userTaskService) =>
-        {
-            return await userTaskService.GetByIdAsync(id);
-        })
-        .WithName("GetById")
-        .WithOpenApi();
-
         group.MapPost("/", ([FromBody] UserTaskDTO model, IUserTaskService userTaskService) =>
         {
             userTaskService.Add(model);

@@ -8,18 +8,19 @@ namespace TasksWorker.Domain.Services
 {
     public class QueueService : IQueueService
     {
-        private readonly ILogger<Worker> _logger;
         private readonly IConfiguration _configuration = default!;
         private readonly IUserTaskService _userTaskService = default!;
+        private readonly ILogs _logs;
 
         private readonly string _queueName;
         private readonly string _queueHostName;
 
-        public QueueService(ILogger<Worker> logger, IConfiguration configuration, IUserTaskService userTaskService)
+        public QueueService(IConfiguration configuration, IUserTaskService userTaskService, ILogs logs)
         {
-            _logger = logger;
             _configuration = configuration;
             _userTaskService = userTaskService;
+            _logs = logs;
+
             _queueName = _configuration.GetValue<string>("QueueName") ?? string.Empty;
             _queueHostName = _configuration.GetValue<string>("QueueHostName") ?? "localhost";
         }
@@ -52,11 +53,7 @@ namespace TasksWorker.Domain.Services
                     }
                     catch (Exception ex)
                     {
-                        if (_logger.IsEnabled(LogLevel.Information))
-                        {
-                            _logger.LogInformation("Exception ocurred at: {time}. Message: {message} | InnerException: {innerException}", DateTimeOffset.Now, ex.Message, ex.InnerException);
-                        }
-
+                        _logs.LogInfo($"Exception ocurred at: {DateTimeOffset.Now}. Message: {ex.Message} | InnerException: {ex.InnerException}");
                         channel.BasicNack(result.DeliveryTag, false, true);
                     }
                 }
