@@ -15,16 +15,37 @@ namespace TasksAPI.Domain.Services
             _queueService = queueService;
         }
 
-        public async Task<UserTask?> GetByIdAsync(int id)
-          => await _userTaskRepository.GetByIdAsync(id);
-
-        public async Task<List<UserTask>> GetAllAsync()
+        public async Task<UserTaskDTO?> GetByIdAsync(int id)
         {
-            var result = await _userTaskRepository.GetAllAsync();
-            return result is not null ? result : [];
+            var userTask = await _userTaskRepository.GetByIdAsync(id);
+            var userTaskDTO = EntityToDTO(userTask);
+            return userTaskDTO;
+        }
+
+        public async Task<List<UserTaskDTO>> GetAllAsync()
+        {
+            var list = await _userTaskRepository.GetAllAsync();
+
+            if (list is null)
+                return [];
+
+            return list.Select(x => EntityToDTO(x)).ToList();
         }
 
         public void Add(UserTaskDTO userTaskDTO)
             => _queueService.EnqueueUserTask(userTaskDTO);
+
+        private UserTaskDTO EntityToDTO(UserTask? userTask)
+        {
+            if (userTask is null)
+                return new();
+
+            return new UserTaskDTO()
+            {
+                Description = userTask.Description,
+                InsertDate = userTask.InsertDate,
+                Status = userTask.Status
+            };
+        }
     }
 }

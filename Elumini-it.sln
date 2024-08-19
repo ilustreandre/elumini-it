@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TasksAPI", "TasksAPI\TasksA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TasksWorker", "TasksWorker\TasksWorker.csproj", "{CF2E93D9-1934-4F3D-8056-798056350565}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "TaskAngular", "TaskAngular\TaskAngular.esproj", "{EE49D576-4FA9-4A83-A7B9-D9BB222F3DFA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,12 @@ Global
 		{CF2E93D9-1934-4F3D-8056-798056350565}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF2E93D9-1934-4F3D-8056-798056350565}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF2E93D9-1934-4F3D-8056-798056350565}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE49D576-4FA9-4A83-A7B9-D9BB222F3DFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE49D576-4FA9-4A83-A7B9-D9BB222F3DFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE49D576-4FA9-4A83-A7B9-D9BB222F3DFA}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{EE49D576-4FA9-4A83-A7B9-D9BB222F3DFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE49D576-4FA9-4A83-A7B9-D9BB222F3DFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE49D576-4FA9-4A83-A7B9-D9BB222F3DFA}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
